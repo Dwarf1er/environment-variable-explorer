@@ -1,0 +1,20 @@
+﻿@inherits LocalizedComponentBase<MainLayout>
+
+<MudThemeProvider @ref="@_mudThemeProvider" Theme="@_mudTheme" @bind-IsDarkMode="@_isDarkMode" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+	<MudAppBar Dense="true">
+		<MudText>EVE</MudText>
+		<MudSpacer />
+		<MudButton Variant="Variant.Text" Color="Color.Inherit" OnClick="@(() => LanguageToggle())">@_language</MudButton>
+		<MudIconButton Icon="@GetThemeIcon()" Color="Color.Inherit" OnClick="@(() => ThemeToggle())" />
+	</MudAppBar>
+	<MudMainContent>
+		<MudContainer MaxWidth="MaxWidth.False" Class="px-8 py-6">
+			@Body
+		</MudContainer>
+	</MudMainContent>
+</MudLayout>

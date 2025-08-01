@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+		<OutputType>WinExe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+		<ApplicationIcon>wwwroot/favicon.ico</ApplicationIcon>
+		<PublishSingleFile>true</PublishSingleFile>
+		<SelfContained>true</SelfContained>
+		<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+		<DebugType>embedded</DebugType>
+		<PublishAot>false</PublishAot>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="LiteDB" Version="5.0.21" />
+        <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="9.0.7" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="9.0.7" />
+        <PackageReference Include="MudBlazor" Version="8.9.0" />
+        <PackageReference Include="Photino.Blazor" Version="4.0.13" />
+    </ItemGroup>
+
+	<ItemGroup Condition="$(RuntimeIdentifier.StartsWith('win'))">
+		<RdXmlFile Include="rd.xml" />
+		<RdXmlFile Include="Microsoft.AspNetCore.Components.Web.rd.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="wwwroot\**" />
+		<EmbeddedResource Include="..\Common\bin\Release\net9.0\publish\**" />
+		<EmbeddedResource Remove="..\Common\bin\Release\net9.0\publish\*.*" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Remove="wwwroot\index.html" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Update="wwwroot\**">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="wwwroot\favicon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Resources\Components\Layout\" />
+		<Folder Include="Resources\Components\Pages\" />
+		<Folder Include="wwwroot\_content\" />
+	</ItemGroup>
+
+</Project>

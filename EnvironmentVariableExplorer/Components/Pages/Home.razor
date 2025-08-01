@@ -1,0 +1,67 @@
+﻿@page "/"
+@using EnvironmentVariableExplorer.Models
+@inherits LocalizedComponentBase<Home>
+
+<MudTable
+Items="@FilteredEnvironmentVariables"
+Hover="@_hover"
+CanCancelEdit="@_canCancelEdit"
+@bind-SelectedItem="@_selectedEnvironmentVariable"
+FixedHeader="@_fixedHeader"
+Filter="new Func<EnvironmentVariable, bool>(SearchEnvironmentVariables)"
+CommitEditTooltip="Commit Edit"
+OnCommitEditClick="@(() => Snackbar.Add("Change Saved"))"
+RowEditPreview="BackupItem"
+RowEditCancel="ResetItemToOriginalValues"
+RowEditCommit="ItemHasBeenCommitted"
+ApplyButtonPosition="@_applyButtonPosition"
+EditButtonPosition="@_editButtonPosition"
+EditTrigger="@_editTrigger"
+Height="79vh"
+@ref="_mudTable"
+>
+    <ToolBarContent>
+        <MudSelect @bind-Value="_selectedTarget" @bind-Value:after="OnTargetChanged" Placeholder="Select Target">
+            @foreach (string target in _targets)
+            {
+                <MudSelectItem Value="target">@target</MudSelectItem>
+            }
+        </MudSelect>
+        <MudSpacer />
+        <MudTextField @bind-Value="_searchString" Placeholder="Search" Immediate="true" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium"></MudTextField>
+        <MudFab OnClick="AddRowAsync" Color="Color.Primary" Size="Size.Small" StartIcon="@Icons.Material.Filled.Add" />
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+        <MudTh>Value</MudTh>
+        <MudTh>Target</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@context.Name</MudTd>
+        <MudTd Style="overflow-wrap:break-word;max-width:200px;">@context.Value</MudTd>
+        <MudTd>@context.Target</MudTd>
+    </RowTemplate>
+    <RowEditingTemplate>
+        @if(context.Target == EnvironmentVariableTarget.User)
+        {
+            <MudTd>
+                <MudTextField T="string" @bind-Value="context.Name" Required @ref="_mudTextField" />
+            </MudTd>
+            <MudTd Style="overflow-wrap:break-word;max-width:200px;">
+                <MudTextField T="string" @bind-Value="context.Value" Required />
+            </MudTd>
+            <MudTd>@context.Target</MudTd>
+            <MudTd>
+                <MudIconButton OnClick="@(() => DeleteRowAsync(context))" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" />
+            </MudTd>
+        }
+        else
+        {
+            _mudTable.SetEditingItem(null);
+            Snackbar.Add("Can't edit \"Machine\" environment variable");
+            <MudTd>@context.Name</MudTd>
+            <MudTd Style="overflow-wrap:break-word;max-width:200px;">@context.Value</MudTd>
+            <MudTd>@context.Target</MudTd>
+        }
+    </RowEditingTemplate>
+</MudTable>
