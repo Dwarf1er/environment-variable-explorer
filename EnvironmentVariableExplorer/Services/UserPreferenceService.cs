@@ -1,6 +1,8 @@
 ﻿using EnvironmentVariableExplorer.Data;
+using EnvironmentVariableExplorer.Helpers;
 using EnvironmentVariableExplorer.Models;
 using LiteDB;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace EnvironmentVariableExplorer.Services
@@ -15,30 +17,30 @@ namespace EnvironmentVariableExplorer.Services
             _dbPath = LiteDbContext.DbPath;
         }
 
-        public async Task StoreUserPreferenceAsync(bool isDarkMode, string language)
+        public async Task StoreUserPreferenceAsync(bool isDarkMode, CultureInfo language)
         {
             await Task.Run(() =>
             {
-                using (var db = new LiteDatabase(_dbPath))
+                using (LiteDatabase db = new LiteDatabase(_dbPath))
                 {
-                    var collection = db.GetCollection<UserPreference>(_collectionName);
-                    var userPref = collection.FindById("user1");
+                    ILiteCollection<UserPreference> collection = db.GetCollection<UserPreference>(_collectionName);
+                    UserPreference userPreference = collection.FindById(SystemUtils.currentUserName);
 
-                    if (userPref == null)
+                    if (userPreference == null)
                     {
-                        userPref = new UserPreference
+                        userPreference = new UserPreference
                         {
-                            Id = "user1",
+                            Id = SystemUtils.currentUserName,
                             IsDarkMode = isDarkMode,
-                            Language = language
+                            Language = language.Name
                         };
-                        collection.Insert(userPref);
+                        collection.Insert(userPreference);
                     }
                     else
                     {
-                        userPref.IsDarkMode = isDarkMode;
-                        userPref.Language = language;
-                        collection.Update(userPref);
+                        userPreference.IsDarkMode = isDarkMode;
+                        userPreference.Language = language.Name;
+                        collection.Update(userPreference);
                     }
                 }
             });
@@ -50,24 +52,25 @@ namespace EnvironmentVariableExplorer.Services
             {
                 using (LiteDatabase db = new LiteDatabase(_dbPath))
                 {
-                    var collection = db.GetCollection<UserPreference>(_collectionName);
-                    var userPref = collection.FindById("user1");
+                    ILiteCollection<UserPreference> collection = db.GetCollection<UserPreference>(_collectionName);
+                    UserPreference userPreference = collection.FindById(SystemUtils.currentUserName);
 
-                    return userPref?.IsDarkMode ?? true;
+                    return userPreference?.IsDarkMode ?? true;
                 }
             });
         }
 
-        public async Task<string> GetUserLanguagePreferenceAsync()
+        public async Task<CultureInfo> GetUserLanguagePreferenceAsync()
         {
             return await Task.Run(() =>
             {
                 using (LiteDatabase db = new LiteDatabase(_dbPath))
                 {
-                    var collection = db.GetCollection<UserPreference>(_collectionName);
-                    var userPref = collection.FindById("user1");
+                    ILiteCollection<UserPreference> collection = db.GetCollection<UserPreference>(_collectionName);
+                    UserPreference userPreference = collection.FindById(SystemUtils.currentUserName);
 
-                    return userPref?.Language ?? "FR";
+                    string languageCode = userPreference?.Language ?? "en-US";
+                    return new CultureInfo(languageCode);
                 }
             });
         }

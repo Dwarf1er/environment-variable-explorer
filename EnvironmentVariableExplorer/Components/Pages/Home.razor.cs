@@ -1,5 +1,7 @@
-﻿using EnvironmentVariableExplorer.Models;
+﻿using EnvironmentVariableExplorer.Helpers;
+using EnvironmentVariableExplorer.Models;
 using EnvironmentVariableExplorer.Services;
+using EnvironmentVariableExplorer.Shared;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System;
@@ -9,20 +11,20 @@ using System.Threading.Tasks;
 
 namespace EnvironmentVariableExplorer.Components.Pages
 {
-    public partial class Home : LocalizedComponentBase<Home>
+    public partial class Home : ComponentBase
     {
         [Inject] private EnvironmentVariableService EnvironmentVariableService { get; set; }
+        [Inject] private LanguageService LanguageService { get; set; }
         [Inject] ISnackbar Snackbar { get; set; }
         [Inject] IDialogService DialogService { get; set; }
 
-        private string _selectedTarget = "User";
         private string _searchString;
-        private string[] _targets = ["User", "Machine", "All"];
+        private List<EnvironmentVariableTargetSelectionOption> _availableEnvironmentVariableTargets;
+        private EnvironmentVariableTargetSelectionOption _selectedEnvironmentVariableTarget;
         private EnvironmentVariable _environmentVariableBeforeEdit;
         private EnvironmentVariable _selectedEnvironmentVariable;
         private EnvironmentVariable _newEnvironmentVariable = new EnvironmentVariable();
         private List<EnvironmentVariable> _environmentVariables = new List<EnvironmentVariable>();
-        private HashSet<EnvironmentVariable> _selectedEnvironmentVariables = new HashSet<EnvironmentVariable>();
         private MudTable<EnvironmentVariable> _mudTable;
         private MudTextField<string> _mudTextField;
 
@@ -34,20 +36,63 @@ namespace EnvironmentVariableExplorer.Components.Pages
         private TableEditButtonPosition _editButtonPosition = TableEditButtonPosition.End;
         private TableEditTrigger _editTrigger = TableEditTrigger.RowClick;
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            base.OnInitialized();
-            LoadEnvironmentVariables();
+            await base.OnInitializedAsync();
+
+            LanguageService.OnLanguageChanged += LanguageChanged;
+
+            _availableEnvironmentVariableTargets = new List<EnvironmentVariableTargetSelectionOption> { EnvironmentVariableTargetSelectionOption.Process };
+
+            if(SystemUtils.IsWindows)
+            {
+                _availableEnvironmentVariableTargets.Add(EnvironmentVariableTargetSelectionOption.User);
+                _availableEnvironmentVariableTargets.Add(EnvironmentVariableTargetSelectionOption.Machine);
+                _availableEnvironmentVariableTargets.Add(EnvironmentVariableTargetSelectionOption.All);
+            }
+
+            _selectedEnvironmentVariableTarget = EnvironmentVariableTargetSelectionOption.Process;
+            await LoadEnvironmentVariablesAsync();
         }
 
-        private void OnTargetChanged()
+        private async Task OnEnvironmentVariableTargetChanged()
         {
-            LoadEnvironmentVariables();
+            await LoadEnvironmentVariablesAsync();
         }
 
         private void AddEditionEvent(string message)
         {
             _editEvents.Add(message);
+            StateHasChanged();
+        }
+
+        private void LanguageChanged()
+        {
+            InvokeAsync(StateHasChanged);
+        }
+
+        private async Task LoadEnvironmentVariablesAsync()
+        {
+            Result<List<EnvironmentVariable>, string> result = _selectedEnvironmentVariableTarget switch
+            {
+                EnvironmentVariableTargetSelectionOption.User => await Task.FromResult(EnvironmentVariableService.GetEnvironmentVariablesByTarget(EnvironmentVariableTarget.User)),
+                EnvironmentVariableTargetSelectionOption.Machine => await Task.FromResult(EnvironmentVariableService.GetEnvironmentVariablesByTarget(EnvironmentVariableTarget.Machine)),
+                EnvironmentVariableTargetSelectionOption.Process => await Task.FromResult(EnvironmentVariableService.GetEnvironmentVariablesByTarget(EnvironmentVariableTarget.Process)),
+                EnvironmentVariableTargetSelectionOption.All => await Task.FromResult(EnvironmentVariableService.GetAllEnvironmentVariables()),
+                _ => Result<List<EnvironmentVariable>, string>.Err("Invalid target selected")
+            };
+
+            if (result.IsSuccess)
+            {
+                _environmentVariables = result.Value;
+            }
+
+            else
+            {
+                Snackbar.Add($"Error loading environment variables: {result.Error}", Severity.Error);
+                _environmentVariables = new List<EnvironmentVariable>();
+            }
+
             StateHasChanged();
         }
 
@@ -63,10 +108,21 @@ namespace EnvironmentVariableExplorer.Components.Pages
             AddEditionEvent($"RowEditPreview event: made a backup of EnvironmentVariable {((EnvironmentVariable)environmnentVariable).Name}");
         }
 
-        private void ItemHasBeenCommitted(object environmentVariable)
+        private async void ItemHasBeenCommitted(object environmentVariableComitted)
         {
-            EnvironmentVariableService.SetEnvironmentVariable(((EnvironmentVariable)environmentVariable).Name, ((EnvironmentVariable)environmentVariable).Value, ((EnvironmentVariable)environmentVariable).Target);
-            AddEditionEvent($"RowEditCommit event: Changes to EnvironmentVariable {((EnvironmentVariable)environmentVariable).Name} committed");
+            EnvironmentVariable environmentVariable = (EnvironmentVariable)environmentVariableComitted;
+            Result<Unit, string> result = await Task.FromResult(EnvironmentVariableService.SetEnvironmentVariable(environmentVariable.Name, environmentVariable.Value, environmentVariable.Target));
+
+            if (result.IsSuccess)
+            {
+                AddEditionEvent($"RowEditCommit event: Changes to EnvironmentVariable {environmentVariable.Name} committed");
+                Snackbar.Add("Change saved", Severity.Success);
+            }
+            else
+            {
+                ResetItemToOriginalValues(environmentVariable);
+                Snackbar.Add($"Failed to save: {result.Error}", Severity.Error);
+            }
         }
 
         private void ResetItemToOriginalValues(object environmentVariable)
@@ -99,7 +155,7 @@ namespace EnvironmentVariableExplorer.Components.Pages
             await _mudTextField.FocusAsync();
         }
 
-        private async void DeleteRowAsync(EnvironmentVariable environmentVariable)
+        private async Task DeleteRowAsync(EnvironmentVariable environmentVariable)
         {
             _mudTable.SetEditingItem(null);
 
@@ -110,30 +166,20 @@ namespace EnvironmentVariableExplorer.Components.Pages
                 noText: "Cancel"
             );
 
-            if ((bool)confirmed)
+            if (confirmed == true)
             {
-                EnvironmentVariableService.DeleteEnvironmentVariable(environmentVariable.Name, environmentVariable.Target);
+                Result<Unit, string> result = await Task.FromResult(EnvironmentVariableService.DeleteEnvironmentVariable(environmentVariable.Name, environmentVariable.Target));
 
-                _environmentVariables.Remove(environmentVariable);
-                AddEditionEvent($"DeleteRow event: deleted EnvironmentVariable {environmentVariable.Name}");
-            }
-        }
-
-        private void LoadEnvironmentVariables()
-        {
-            switch (_selectedTarget)
-            {
-                case "User":
-                    _environmentVariables = EnvironmentVariableService.GetEnvironmentVariablesByTarget(EnvironmentVariableTarget.User);
-                    break;
-
-                case "Machine":
-                    _environmentVariables = EnvironmentVariableService.GetEnvironmentVariablesByTarget(EnvironmentVariableTarget.Machine);
-                    break;
-
-                case "All":
-                    _environmentVariables = EnvironmentVariableService.GetAllEnvironmentVariables();
-                    break;
+                if (result.IsSuccess)
+                {
+                    _environmentVariables.Remove(environmentVariable);
+                    AddEditionEvent($"DeleteRow event: deleted EnvironmentVariable {environmentVariable.Name}");
+                    Snackbar.Add("Deleted successfully", Severity.Success);
+                }
+                else
+                {
+                    Snackbar.Add($"Failed to delete: {result.Error}", Severity.Error);
+                }
             }
         }
 

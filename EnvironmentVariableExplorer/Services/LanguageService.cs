@@ -7,13 +7,16 @@ namespace EnvironmentVariableExplorer.Services
     {
         public event Action OnLanguageChanged;
 
-        public void SetLanguage(string language)
+        public string CurrentLanguage => CultureInfo.CurrentUICulture.TwoLetterISOLanguageName.ToUpper();
+
+        public void SetLanguage(CultureInfo culture)
         {
-            CultureInfo cultureInfo = new CultureInfo(language == "FR" ? "fr-CA" : "en-US");
-            CultureInfo.CurrentCulture = cultureInfo;
-            CultureInfo.CurrentUICulture = cultureInfo;
-            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+            CultureInfo.CurrentCulture = culture;
+            CultureInfo.CurrentUICulture = culture;
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
+
+            Resources.Strings.ResourceManager.ReleaseAllResources();
 
             OnLanguageChanged?.Invoke();
         }

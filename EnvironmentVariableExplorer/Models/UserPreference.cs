@@ -1,4 +1,6 @@
-﻿namespace EnvironmentVariableExplorer.Models
+﻿using System.Globalization;
+
+namespace EnvironmentVariableExplorer.Models
 {
     public class UserPreference
     {

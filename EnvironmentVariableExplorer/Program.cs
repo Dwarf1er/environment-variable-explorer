@@ -1,6 +1,6 @@
 using EnvironmentVariableExplorer.Components;
 using EnvironmentVariableExplorer.Services;
-using EnvironmentVariableExplorer.Utils;
+using EnvironmentVariableExplorer.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using MudBlazor;
@@ -9,7 +9,7 @@ using Photino.Blazor;
 using System;
 using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
+using System.Globalization;
 
 namespace EnvironmentVariableExplorer
 {
@@ -27,7 +27,12 @@ namespace EnvironmentVariableExplorer
             PhotinoBlazorApp app = appBuilder.Build();
 
             string iconPath = ExtractEmbeddedResourceToTempFile("favicon.ico");
-            string localizedAppTitle = GetLocalizedAppTitleAsync().Result;
+
+            UserPreferenceService userPreferenceService = new UserPreferenceService();
+            CultureInfo preferredCulture = userPreferenceService.GetUserLanguagePreferenceAsync().GetAwaiter().GetResult();
+            CultureInfo.DefaultThreadCurrentCulture = preferredCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = preferredCulture;
+            string localizedAppTitle = Resources.Strings.AppTitle + " "; // Needs a space a the end of the string due to Windows 11 taskbar icon bug
 
             app.MainWindow
                 .SetSize(1280, 800)
@@ -83,14 +88,6 @@ namespace EnvironmentVariableExplorer
 
                 return tempFile;
             }
-        }
-
-        private static async Task<string> GetLocalizedAppTitleAsync()
-        {
-            UserPreferenceService userPreferenceService = new UserPreferenceService();
-            string language = await userPreferenceService.GetUserLanguagePreferenceAsync();
-
-            return language == "FR" ? "Environment Variable Explorer " : "Explorateur Variable Environnement "; // Needs a space a the end of the string due to Windows 11 taskbar icon bug
         }
     }
 }

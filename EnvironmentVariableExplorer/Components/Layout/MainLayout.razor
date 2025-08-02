@@ -1,4 +1,7 @@
-﻿@inherits LocalizedComponentBase<MainLayout>
+﻿@using System.Globalization
+@using EnvironmentVariableExplorer.Helpers
+@using EnvironmentVariableExplorer.Resources
+@inherits LayoutComponentBase
 
 <MudThemeProvider @ref="@_mudThemeProvider" Theme="@_mudTheme" @bind-IsDarkMode="@_isDarkMode" />
 <MudPopoverProvider />
@@ -7,9 +10,16 @@
 
 <MudLayout>
 	<MudAppBar Dense="true">
-		<MudText>EVE</MudText>
-		<MudSpacer />
-		<MudButton Variant="Variant.Text" Color="Color.Inherit" OnClick="@(() => LanguageToggle())">@_language</MudButton>
+		<MudSpacer/>
+		<MudSelect T="CultureInfo"
+			Value="@_culture"
+			ValueChanged="OnCultureChanged"
+			Style="max-width: 4rem;">
+            @foreach (CultureInfo culture in LocalizationOptions.SupportedCultures)
+            {
+                <MudSelectItem Value="@culture">@culture.TwoLetterISOLanguageName.ToUpperInvariant().Trim()</MudSelectItem>
+            }
+        </MudSelect>
 		<MudIconButton Icon="@GetThemeIcon()" Color="Color.Inherit" OnClick="@(() => ThemeToggle())" />
 	</MudAppBar>
 	<MudMainContent>
