@@ -1,4 +1,13 @@
-# 1.1.0 (2025-08-03)
+## [1.1.1](https://github.com/Dwarf1er/environment-variable-explorer/compare/v1.1.0...v1.1.1) (2025-08-03)
+
+
+### Bug Fixes
+
+* enabled nullable types ([b2837a0](https://github.com/Dwarf1er/environment-variable-explorer/commit/b2837a0103fa0581eba8c5288c26c0693937089e))
+
+
+
+# [1.1.0](https://github.com/Dwarf1er/environment-variable-explorer/compare/c11c4d242c8b22a324dad8391324d665e88e4961...v1.1.0) (2025-08-03)
 
 
 ### Bug Fixes
