@@ -3,11 +3,13 @@
     <PropertyGroup>
 		<OutputType>WinExe</OutputType>
         <TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
 		<ApplicationIcon>wwwroot/favicon.ico</ApplicationIcon>
 		<PublishSingleFile>true</PublishSingleFile>
 		<SelfContained>true</SelfContained>
 		<IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
 		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+		<RuntimeIdentifier>$(RuntimeIdentifier)</RuntimeIdentifier>
 		<DebugType>embedded</DebugType>
 		<PublishAot>false</PublishAot>
     </PropertyGroup>
@@ -29,10 +31,6 @@
 		<EmbeddedResource Include="wwwroot\**" />
 		<EmbeddedResource Include="..\Common\bin\Release\net9.0\publish\**" />
 		<EmbeddedResource Remove="..\Common\bin\Release\net9.0\publish\*.*" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Remove="wwwroot\index.html" />
 	</ItemGroup>
 
 	<ItemGroup>
