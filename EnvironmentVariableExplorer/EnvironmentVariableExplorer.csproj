@@ -29,8 +29,8 @@
 
 	<ItemGroup>
 		<EmbeddedResource Include="wwwroot\**" />
-		<EmbeddedResource Include="..\Common\bin\Release\net9.0\publish\**" />
-		<EmbeddedResource Remove="..\Common\bin\Release\net9.0\publish\*.*" />
+		<EmbeddedResource Include="..\Common\bin\Release\net8.0\$(RuntimeIdentifier)\publish\**" />
+		<EmbeddedResource Remove="..\Common\bin\Release\net8.0\$(RuntimeIdentifier)\publish\*.*" />
 	</ItemGroup>
 
 	<ItemGroup>
