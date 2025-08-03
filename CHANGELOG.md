@@ -1,3 +1,12 @@
+## [1.1.2](https://github.com/Dwarf1er/environment-variable-explorer/compare/v1.1.1...v1.1.2) (2025-08-03)
+
+
+### Bug Fixes
+
+* changed css imports ([cc73aaf](https://github.com/Dwarf1er/environment-variable-explorer/commit/cc73aaf63d1183281c4624888a2ee2d59ba15e1b))
+
+
+
 ## [1.1.1](https://github.com/Dwarf1er/environment-variable-explorer/compare/v1.1.0...v1.1.1) (2025-08-03)
 
 
