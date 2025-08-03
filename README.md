@@ -13,11 +13,11 @@
 ![Contributors](https://img.shields.io/github/contributors/Dwarf1er/environment-variable-explorer?style=for-the-badge)
 ![Stars](https://img.shields.io/github/stars/Dwarf1er/environment-variable-explorer?style=for-the-badge)
 
+</div>
+
 # Demo
 
-![](/assets/environment-variable-explorer-demo.gif)
-
-</div>
+![](https://github.com/Dwarf1er/environment-variable-explorer/blob/master/assets/environment-variable-explorer-demo.gif)
 
 # Project Description
 
@@ -43,7 +43,6 @@ No more hunting through OS settings or remembering complex commands! This app of
 # Table of Contents
 
 - [Environment Variable Explorer](#environment-variable-explorer)
-        - [Manage Environment Variables Easily Across Platforms](#manage-environment-variables-easily-across-platforms)
 - [Project Description](#project-description)
 - [Why Environment Variable Explorer?](#why-environment-variable-explorer)
 - [Table of Contents](#table-of-contents)
