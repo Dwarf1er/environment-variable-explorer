@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using EnvironmentVariableExplorer.Helpers
 @using EnvironmentVariableExplorer.Models
 @using EnvironmentVariableExplorer.Shared
 @inherits ComponentBase
@@ -48,7 +49,21 @@ Height="79vh"
         <MudTd Style="overflow-wrap:break-word;max-width:200px;">
             <MudTextField T="string" @bind-Value="context.Value" Required />
         </MudTd>
-        <MudTd>@context.Target</MudTd>
+        <MudTd>
+            @if (context == _newEnvironmentVariable)
+            {
+                <MudSelect T="EnvironmentVariableTarget" @bind-Value="context.Target">
+                    @foreach (EnvironmentVariableTarget target in SystemUtils.GetPlatformSupportedTargets())
+                    {
+                        <MudSelectItem Value="@target">@target</MudSelectItem>
+                    }
+                </MudSelect>
+            }
+            else
+            {
+                @context.Target
+            }
+        </MudTd>
         <MudTd>
             <MudIconButton OnClick="@(() => DeleteRowAsync(context))" Variant="Variant.Filled" Icon="@Icons.Material.Filled.Delete" Color="Color.Error" />
         </MudTd>

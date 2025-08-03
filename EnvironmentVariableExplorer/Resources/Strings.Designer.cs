@@ -70,6 +70,87 @@ namespace EnvironmentVariableExplorer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to delete environment variable &apos;{0}&apos;.
+        /// </summary>
+        public static string DeleteEnvironmentVariableError {
+            get {
+                return ResourceManager.GetString("DeleteEnvironmentVariableError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting {0} environment variables is only supported on Windows..
+        /// </summary>
+        public static string DeleteEnvironmentVariablePlatformError {
+            get {
+                return ResourceManager.GetString("DeleteEnvironmentVariablePlatformError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete: {0}?.
+        /// </summary>
+        public static string DialogConfirmDeletionMessage {
+            get {
+                return ResourceManager.GetString("DialogConfirmDeletionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Deletion.
+        /// </summary>
+        public static string DialogConfirmDeletionTitle {
+            get {
+                return ResourceManager.GetString("DialogConfirmDeletionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to get environment variables for {0}.
+        /// </summary>
+        public static string GetEnvironmentVariablesByTargetError {
+            get {
+                return ResourceManager.GetString("GetEnvironmentVariablesByTargetError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid target selected.
+        /// </summary>
+        public static string InvalidEnvironmentVariableTargetError {
+            get {
+                return ResourceManager.GetString("InvalidEnvironmentVariableTargetError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading environment variables: {0}.
+        /// </summary>
+        public static string LoadEnvironmentVariablesError {
+            get {
+                return ResourceManager.GetString("LoadEnvironmentVariablesError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {
@@ -84,6 +165,69 @@ namespace EnvironmentVariableExplorer.Resources {
         public static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to set environment variable &apos;{0}&apos;.
+        /// </summary>
+        public static string SetEnvironmentVariableError {
+            get {
+                return ResourceManager.GetString("SetEnvironmentVariableError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} environment variables are only supported on Windows..
+        /// </summary>
+        public static string SetEnvironmentVariablePlatformError {
+            get {
+                return ResourceManager.GetString("SetEnvironmentVariablePlatformError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only Process-level variables can be added on this platform..
+        /// </summary>
+        public static string SnackbarAddRowPlatformWarning {
+            get {
+                return ResourceManager.GetString("SnackbarAddRowPlatformWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change saved.
+        /// </summary>
+        public static string SnackbarChangeSaved {
+            get {
+                return ResourceManager.GetString("SnackbarChangeSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to delete: {0}.
+        /// </summary>
+        public static string SnackbarDeleteFailed {
+            get {
+                return ResourceManager.GetString("SnackbarDeleteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleted successfully.
+        /// </summary>
+        public static string SnackbarDeleteSuccess {
+            get {
+                return ResourceManager.GetString("SnackbarDeleteSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save: {0}.
+        /// </summary>
+        public static string SnackbarFailedToSave {
+            get {
+                return ResourceManager.GetString("SnackbarFailedToSave", resourceCulture);
             }
         }
         

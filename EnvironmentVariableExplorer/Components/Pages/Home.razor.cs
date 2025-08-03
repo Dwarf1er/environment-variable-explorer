@@ -79,7 +79,7 @@ namespace EnvironmentVariableExplorer.Components.Pages
                 EnvironmentVariableTargetSelectionOption.Machine => await Task.FromResult(EnvironmentVariableService.GetEnvironmentVariablesByTarget(EnvironmentVariableTarget.Machine)),
                 EnvironmentVariableTargetSelectionOption.Process => await Task.FromResult(EnvironmentVariableService.GetEnvironmentVariablesByTarget(EnvironmentVariableTarget.Process)),
                 EnvironmentVariableTargetSelectionOption.All => await Task.FromResult(EnvironmentVariableService.GetAllEnvironmentVariables()),
-                _ => Result<List<EnvironmentVariable>, string>.Err("Invalid target selected")
+                _ => Result<List<EnvironmentVariable>, string>.Err(Resources.Strings.InvalidEnvironmentVariableTargetError)
             };
 
             if (result.IsSuccess)
@@ -89,7 +89,7 @@ namespace EnvironmentVariableExplorer.Components.Pages
 
             else
             {
-                Snackbar.Add($"Error loading environment variables: {result.Error}", Severity.Error);
+                Snackbar.Add(String.Format(Resources.Strings.LoadEnvironmentVariablesError, result.Error), Severity.Error);
                 _environmentVariables = new List<EnvironmentVariable>();
             }
 
@@ -116,12 +116,12 @@ namespace EnvironmentVariableExplorer.Components.Pages
             if (result.IsSuccess)
             {
                 AddEditionEvent($"RowEditCommit event: Changes to EnvironmentVariable {environmentVariable.Name} committed");
-                Snackbar.Add("Change saved", Severity.Success);
+                Snackbar.Add(Resources.Strings.SnackbarChangeSaved, Severity.Success);
             }
             else
             {
                 ResetItemToOriginalValues(environmentVariable);
-                Snackbar.Add($"Failed to save: {result.Error}", Severity.Error);
+                Snackbar.Add(String.Format(Resources.Strings.SnackbarFailedToSave, result.Error), Severity.Error);
             }
         }
 
@@ -145,11 +145,26 @@ namespace EnvironmentVariableExplorer.Components.Pages
         private async void AddRowAsync()
         {
             _newEnvironmentVariable = new EnvironmentVariable();
-            _newEnvironmentVariable.Target = EnvironmentVariableTarget.User;
+
+            EnvironmentVariableTarget actualTarget = _selectedEnvironmentVariableTarget switch
+            {
+                EnvironmentVariableTargetSelectionOption.User => EnvironmentVariableTarget.User,
+                EnvironmentVariableTargetSelectionOption.Machine => EnvironmentVariableTarget.Machine,
+                EnvironmentVariableTargetSelectionOption.Process => EnvironmentVariableTarget.Process,
+                _ => EnvironmentVariableTarget.Process
+            };
+
+            if (!SystemUtils.IsWindows &&
+                (actualTarget == EnvironmentVariableTarget.User || actualTarget == EnvironmentVariableTarget.Machine))
+            {
+                Snackbar.Add(Resources.Strings.SnackbarAddRowPlatformWarning, Severity.Warning);
+                return;
+            }
+
+            _newEnvironmentVariable.Target = actualTarget;
             _environmentVariables.Insert(0, _newEnvironmentVariable);
 
             await Task.Delay(25);
-
             _mudTable.SetEditingItem(_newEnvironmentVariable);
             AddEditionEvent("AddRow event: added a new row");
             await _mudTextField.FocusAsync();
@@ -160,10 +175,10 @@ namespace EnvironmentVariableExplorer.Components.Pages
             _mudTable.SetEditingItem(null);
 
             bool? confirmed = await DialogService.ShowMessageBox(
-                "Confirm Deletion",
-                $"Are you sure you want to delete: {environmentVariable.Name}?",
-                yesText: "Delete",
-                noText: "Cancel"
+                Resources.Strings.DialogConfirmDeletionTitle,
+                String.Format(Resources.Strings.DialogConfirmDeletionMessage, environmentVariable.Name),
+                yesText: Resources.Strings.Delete,
+                noText: Resources.Strings.Cancel
             );
 
             if (confirmed == true)
@@ -174,11 +189,11 @@ namespace EnvironmentVariableExplorer.Components.Pages
                 {
                     _environmentVariables.Remove(environmentVariable);
                     AddEditionEvent($"DeleteRow event: deleted EnvironmentVariable {environmentVariable.Name}");
-                    Snackbar.Add("Deleted successfully", Severity.Success);
+                    Snackbar.Add(Resources.Strings.SnackbarDeleteSuccess, Severity.Success);
                 }
                 else
                 {
-                    Snackbar.Add($"Failed to delete: {result.Error}", Severity.Error);
+                    Snackbar.Add(String.Format(Resources.Strings.SnackbarDeleteFailed, result.Error), Severity.Error);
                 }
             }
         }

@@ -11,7 +11,7 @@ namespace EnvironmentVariableExplorer.Services
     {
         public Result<List<EnvironmentVariable>, string> GetEnvironmentVariablesByTarget(EnvironmentVariableTarget environmentVariableTarget)
         {
-            return ResultExtensions.Try(() => Environment.GetEnvironmentVariables(environmentVariableTarget).ToEnvironmentVariableList(environmentVariableTarget), $"Failed to get environment variables for {environmentVariableTarget}");
+            return ResultExtensions.Try(() => Environment.GetEnvironmentVariables(environmentVariableTarget).ToEnvironmentVariableList(environmentVariableTarget), String.Format(Resources.Strings.GetEnvironmentVariablesByTargetError, environmentVariableTarget));
         }
 
         public Result<List<EnvironmentVariable>, string> GetAllEnvironmentVariables()
@@ -50,20 +50,20 @@ namespace EnvironmentVariableExplorer.Services
         {
             if (!SystemUtils.IsWindows && (environmentVariableTarget == EnvironmentVariableTarget.User || environmentVariableTarget == EnvironmentVariableTarget.Machine))
             {
-                return Result<Unit, string>.Err($"{environmentVariableTarget} environment variables are only supported on Windows.");
+                return Result<Unit, string>.Err(String.Format(Resources.Strings.SetEnvironmentVariablePlatformError, environmentVariableTarget));
             }
 
-            return ResultExtensions.Try(() => Environment.SetEnvironmentVariable(environmentVariableName, environmentVariableValue, environmentVariableTarget), $"Failed to set environment variable '{environmentVariableName}'");
+            return ResultExtensions.Try(() => Environment.SetEnvironmentVariable(environmentVariableName, environmentVariableValue, environmentVariableTarget), String.Format(Resources.Strings.SetEnvironmentVariableError, environmentVariableName));
         }
 
         public Result<Unit, string> DeleteEnvironmentVariable(string environmentVariableName, EnvironmentVariableTarget environmentVariableTarget)
         {
             if (!SystemUtils.IsWindows && (environmentVariableTarget == EnvironmentVariableTarget.User || environmentVariableTarget == EnvironmentVariableTarget.Machine))
             {
-                return Result<Unit, string>.Err($"Deleting {environmentVariableTarget} environment variables is only supported on Windows.");
+                return Result<Unit, string>.Err(String.Format(Resources.Strings.DeleteEnvironmentVariablePlatformError, environmentVariableTarget));
             }
 
-            return ResultExtensions.Try(() => Environment.SetEnvironmentVariable(environmentVariableName, null, environmentVariableTarget), $"Failed to delete environment variable '{environmentVariableName}'");
+            return ResultExtensions.Try(() => Environment.SetEnvironmentVariable(environmentVariableName, null, environmentVariableTarget), String.Format(Resources.Strings.DeleteEnvironmentVariableError, environmentVariableName));
         }
     }
 }

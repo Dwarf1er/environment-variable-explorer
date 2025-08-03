@@ -14,7 +14,7 @@
 		<MudSelect T="CultureInfo"
 			Value="@_culture"
 			ValueChanged="OnCultureChanged"
-			Style="max-width: 4rem;">
+			Style="max-width: 4rem; margin-left: auto;">
             @foreach (CultureInfo culture in LocalizationOptions.SupportedCultures)
             {
                 <MudSelectItem Value="@culture">@culture.TwoLetterISOLanguageName.ToUpperInvariant().Trim()</MudSelectItem>
