@@ -89,7 +89,7 @@ namespace EnvironmentVariableExplorer.Components.Pages
 
             else
             {
-                Snackbar.Add(String.Format(Resources.Strings.LoadEnvironmentVariablesError, result.Error), Severity.Error);
+                Snackbar.Add($"{Resources.Strings.LoadEnvironmentVariablesError}: {result.Error}", Severity.Error);
                 _environmentVariables = new List<EnvironmentVariable>();
             }
 
@@ -121,7 +121,7 @@ namespace EnvironmentVariableExplorer.Components.Pages
             else
             {
                 ResetItemToOriginalValues(environmentVariable);
-                Snackbar.Add(String.Format(Resources.Strings.SnackbarFailedToSave, result.Error), Severity.Error);
+                Snackbar.Add($"{Resources.Strings.SnackbarFailedToSave}: {result.Error}", Severity.Error);
             }
         }
 
@@ -176,7 +176,7 @@ namespace EnvironmentVariableExplorer.Components.Pages
 
             bool? confirmed = await DialogService.ShowMessageBox(
                 Resources.Strings.DialogConfirmDeletionTitle,
-                String.Format(Resources.Strings.DialogConfirmDeletionMessage, environmentVariable.Name),
+                $"{Resources.Strings.DialogConfirmDeletionMessage}: {environmentVariable.Name}?",
                 yesText: Resources.Strings.Delete,
                 noText: Resources.Strings.Cancel
             );
@@ -193,7 +193,7 @@ namespace EnvironmentVariableExplorer.Components.Pages
                 }
                 else
                 {
-                    Snackbar.Add(String.Format(Resources.Strings.SnackbarDeleteFailed, result.Error), Severity.Error);
+                    Snackbar.Add($"{Resources.Strings.SnackbarDeleteFailed}: {result.Error}", Severity.Error);
                 }
             }
         }

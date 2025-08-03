@@ -11,7 +11,7 @@ namespace EnvironmentVariableExplorer.Services
     {
         public Result<List<EnvironmentVariable>, string> GetEnvironmentVariablesByTarget(EnvironmentVariableTarget environmentVariableTarget)
         {
-            return ResultExtensions.Try(() => Environment.GetEnvironmentVariables(environmentVariableTarget).ToEnvironmentVariableList(environmentVariableTarget), String.Format(Resources.Strings.GetEnvironmentVariablesByTargetError, environmentVariableTarget));
+            return ResultExtensions.Try(() => Environment.GetEnvironmentVariables(environmentVariableTarget).ToEnvironmentVariableList(environmentVariableTarget), $"{Resources.Strings.GetEnvironmentVariablesByTargetError}: {environmentVariableTarget}");
         }
 
         public Result<List<EnvironmentVariable>, string> GetAllEnvironmentVariables()
@@ -50,7 +50,7 @@ namespace EnvironmentVariableExplorer.Services
         {
             if (!SystemUtils.IsWindows && (environmentVariableTarget == EnvironmentVariableTarget.User || environmentVariableTarget == EnvironmentVariableTarget.Machine))
             {
-                return Result<Unit, string>.Err(String.Format(Resources.Strings.SetEnvironmentVariablePlatformError, environmentVariableTarget));
+                return Result<Unit, string>.Err($"{environmentVariableTarget} {Resources.Strings.SetEnvironmentVariablePlatformError}");
             }
 
             return ResultExtensions.Try(() => Environment.SetEnvironmentVariable(environmentVariableName, environmentVariableValue, environmentVariableTarget), String.Format(Resources.Strings.SetEnvironmentVariableError, environmentVariableName));
@@ -60,10 +60,10 @@ namespace EnvironmentVariableExplorer.Services
         {
             if (!SystemUtils.IsWindows && (environmentVariableTarget == EnvironmentVariableTarget.User || environmentVariableTarget == EnvironmentVariableTarget.Machine))
             {
-                return Result<Unit, string>.Err(String.Format(Resources.Strings.DeleteEnvironmentVariablePlatformError, environmentVariableTarget));
+                return Result<Unit, string>.Err($"{environmentVariableTarget} {Resources.Strings.SetEnvironmentVariablePlatformError}");
             }
 
-            return ResultExtensions.Try(() => Environment.SetEnvironmentVariable(environmentVariableName, null, environmentVariableTarget), String.Format(Resources.Strings.DeleteEnvironmentVariableError, environmentVariableName));
+            return ResultExtensions.Try(() => Environment.SetEnvironmentVariable(environmentVariableName, null, environmentVariableTarget), $"{Resources.Strings.DeleteEnvironmentVariableError} '{environmentVariableName}'");
         }
     }
 }

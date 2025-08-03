@@ -127,25 +127,22 @@
     <value>Delete</value>
   </data>
   <data name="DeleteEnvironmentVariableError" xml:space="preserve">
-    <value>Failed to delete environment variable '{0}'</value>
-  </data>
-  <data name="DeleteEnvironmentVariablePlatformError" xml:space="preserve">
-    <value>Deleting {0} environment variables is only supported on Windows.</value>
+    <value>Failed to delete environment variable</value>
   </data>
   <data name="DialogConfirmDeletionMessage" xml:space="preserve">
-    <value>Are you sure you want to delete: {0}?</value>
+    <value>Are you sure you want to delete</value>
   </data>
   <data name="DialogConfirmDeletionTitle" xml:space="preserve">
     <value>Confirm Deletion</value>
   </data>
   <data name="GetEnvironmentVariablesByTargetError" xml:space="preserve">
-    <value>Failed to get environment variables for {0}</value>
+    <value>Failed to get environment variables for</value>
   </data>
   <data name="InvalidEnvironmentVariableTargetError" xml:space="preserve">
     <value>Invalid target selected</value>
   </data>
   <data name="LoadEnvironmentVariablesError" xml:space="preserve">
-    <value>Error loading environment variables: {0}</value>
+    <value>Error loading environment variables</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
@@ -157,7 +154,7 @@
     <value>Failed to set environment variable '{0}'</value>
   </data>
   <data name="SetEnvironmentVariablePlatformError" xml:space="preserve">
-    <value>{0} environment variables are only supported on Windows.</value>
+    <value>environment variables are only supported on Windows.</value>
   </data>
   <data name="SnackbarAddRowPlatformWarning" xml:space="preserve">
     <value>Only Process-level variables can be added on this platform.</value>
@@ -166,13 +163,13 @@
     <value>Change saved</value>
   </data>
   <data name="SnackbarDeleteFailed" xml:space="preserve">
-    <value>Failed to delete: {0}</value>
+    <value>Failed to delete</value>
   </data>
   <data name="SnackbarDeleteSuccess" xml:space="preserve">
     <value>Deleted successfully</value>
   </data>
   <data name="SnackbarFailedToSave" xml:space="preserve">
-    <value>Failed to save: {0}</value>
+    <value>Failed to save</value>
   </data>
   <data name="Target" xml:space="preserve">
     <value>Target</value>

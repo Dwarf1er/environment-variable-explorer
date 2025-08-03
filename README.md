@@ -13,6 +13,10 @@
 ![Contributors](https://img.shields.io/github/contributors/Dwarf1er/environment-variable-explorer?style=for-the-badge)
 ![Stars](https://img.shields.io/github/stars/Dwarf1er/environment-variable-explorer?style=for-the-badge)
 
+# Demo
+
+![](/assets/environment-variable-explorer-demo.gif)
+
 </div>
 
 # Project Description
@@ -44,6 +48,16 @@ No more hunting through OS settings or remembering complex commands! This app of
 - [Why Environment Variable Explorer?](#why-environment-variable-explorer)
 - [Table of Contents](#table-of-contents)
   - [Features](#features)
+    - [Core Functionality](#core-functionality)
+    - [Platform Support](#platform-support)
+  - [Installation](#installation)
+    - [Option 1: Download Pre-built Binary](#option-1-download-pre-built-binary)
+    - [Option 2: Build from source](#option-2-build-from-source)
+  - [Quick Start](#quick-start)
+  - [Troubleshooting](#troubleshooting)
+    - [Common Issues](#common-issues)
+  - [Get Involved](#get-involved)
+- [License](#license)
 
 ## Features
 

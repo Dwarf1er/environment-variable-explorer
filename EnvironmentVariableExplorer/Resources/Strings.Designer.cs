@@ -88,7 +88,7 @@ namespace EnvironmentVariableExplorer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to delete environment variable &apos;{0}&apos;.
+        ///   Looks up a localized string similar to Failed to delete environment variable.
         /// </summary>
         public static string DeleteEnvironmentVariableError {
             get {
@@ -97,16 +97,7 @@ namespace EnvironmentVariableExplorer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleting {0} environment variables is only supported on Windows..
-        /// </summary>
-        public static string DeleteEnvironmentVariablePlatformError {
-            get {
-                return ResourceManager.GetString("DeleteEnvironmentVariablePlatformError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to delete: {0}?.
+        ///   Looks up a localized string similar to Are you sure you want to delete.
         /// </summary>
         public static string DialogConfirmDeletionMessage {
             get {
@@ -124,7 +115,7 @@ namespace EnvironmentVariableExplorer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to get environment variables for {0}.
+        ///   Looks up a localized string similar to Failed to get environment variables for.
         /// </summary>
         public static string GetEnvironmentVariablesByTargetError {
             get {
@@ -142,7 +133,7 @@ namespace EnvironmentVariableExplorer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error loading environment variables: {0}.
+        ///   Looks up a localized string similar to Error loading environment variables.
         /// </summary>
         public static string LoadEnvironmentVariablesError {
             get {
@@ -178,7 +169,7 @@ namespace EnvironmentVariableExplorer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} environment variables are only supported on Windows..
+        ///   Looks up a localized string similar to environment variables are only supported on Windows..
         /// </summary>
         public static string SetEnvironmentVariablePlatformError {
             get {
@@ -205,7 +196,7 @@ namespace EnvironmentVariableExplorer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to delete: {0}.
+        ///   Looks up a localized string similar to Failed to delete.
         /// </summary>
         public static string SnackbarDeleteFailed {
             get {
@@ -223,7 +214,7 @@ namespace EnvironmentVariableExplorer.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to save: {0}.
+        ///   Looks up a localized string similar to Failed to save.
         /// </summary>
         public static string SnackbarFailedToSave {
             get {

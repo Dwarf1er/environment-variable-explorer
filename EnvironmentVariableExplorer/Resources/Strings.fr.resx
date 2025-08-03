@@ -127,25 +127,22 @@
     <value>Supprimer</value>
   </data>
   <data name="DeleteEnvironmentVariableError" xml:space="preserve">
-    <value>Échec de la suppression de la variable d'environnement « {0} »</value>
-  </data>
-  <data name="DeleteEnvironmentVariablePlatformError" xml:space="preserve">
-    <value>La suppression des variables d'environnement {0} est uniquement prise en charge sur Windows.</value>
+    <value>Échec de la suppression de la variable d'environnement</value>
   </data>
   <data name="DialogConfirmDeletionMessage" xml:space="preserve">
-    <value>Êtes-vous sûr de vouloir supprimer : {0} ?</value>
+    <value>Êtes-vous sûr de vouloir supprimer</value>
   </data>
   <data name="DialogConfirmDeletionTitle" xml:space="preserve">
     <value>Confirmer la suppression</value>
   </data>
   <data name="GetEnvironmentVariablesByTargetError" xml:space="preserve">
-    <value>Échec de la récupération des variables d'environnement pour {0}</value>
+    <value>Échec de la récupération des variables d'environnement pour</value>
   </data>
   <data name="InvalidEnvironmentVariableTargetError" xml:space="preserve">
     <value>Cible de variable d'environnement invalide sélectionnée</value>
   </data>
   <data name="LoadEnvironmentVariablesError" xml:space="preserve">
-    <value>Erreur lors du chargement des variables d'environnement : {0}</value>
+    <value>Erreur lors du chargement des variables d'environnement</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nom</value>
@@ -157,7 +154,7 @@
     <value>Échec de la définition de la variable d'environnement « {0} »</value>
   </data>
   <data name="SetEnvironmentVariablePlatformError" xml:space="preserve">
-    <value>Les variables d'environnement {0} sont uniquement prises en charge sur Windows.</value>
+    <value>est une cible uniquement prise en charge sur Windows.</value>
   </data>
   <data name="SnackbarAddRowPlatformWarning" xml:space="preserve">
     <value>Seules les variables de niveau Process peuvent être ajoutées sur cette plateforme.</value>
@@ -166,13 +163,13 @@
     <value>Modification enregistrée</value>
   </data>
   <data name="SnackbarDeleteFailed" xml:space="preserve">
-    <value>Échec de la suppression : {0}</value>
+    <value>Échec de la suppression</value>
   </data>
   <data name="SnackbarDeleteSuccess" xml:space="preserve">
     <value>Supprimé avec succès</value>
   </data>
   <data name="SnackbarFailedToSave" xml:space="preserve">
-    <value>Échec de l'enregistrement : {0}</value>
+    <value>Échec de l'enregistrement</value>
   </data>
   <data name="Target" xml:space="preserve">
     <value>Cible</value>
