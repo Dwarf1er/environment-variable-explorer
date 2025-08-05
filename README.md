@@ -43,12 +43,15 @@ No more hunting through OS settings or remembering complex commands! This app of
 # Table of Contents
 
 - [Environment Variable Explorer](#environment-variable-explorer)
+        - [Manage Environment Variables Easily Across Platforms](#manage-environment-variables-easily-across-platforms)
+- [Demo](#demo)
 - [Project Description](#project-description)
 - [Why Environment Variable Explorer?](#why-environment-variable-explorer)
 - [Table of Contents](#table-of-contents)
   - [Features](#features)
     - [Core Functionality](#core-functionality)
     - [Platform Support](#platform-support)
+  - [Understanding Environment Variable Targets](#understanding-environment-variable-targets)
   - [Installation](#installation)
     - [Option 1: Download Pre-built Binary](#option-1-download-pre-built-binary)
     - [Option 2: Build from source](#option-2-build-from-source)
@@ -70,6 +73,20 @@ No more hunting through OS settings or remembering complex commands! This app of
 - 🪟 **Windows** - Full support for all variable scopes
 - 🐧 **Linux/macOS** - Process-level variables only
 - ⚡ **Cross-platform** - Built with .NET for maximum compatibility
+
+## Understanding Environment Variable Targets
+
+Environment variables can exist in different **scopes (or targets)** depending on your platform:
+
+| Scope   | Description                                                                       | Windows Support | Linux/macOS Support              |
+| ------- | --------------------------------------------------------------------------------- | --------------- | -------------------------------- |
+| Process | Available only to the current running application. **Temporary**.                 | ✅ Supported     | ✅ Supported                      |
+| User    | Available to all applications run by the current user. Persisted in the registry. | ✅ Supported     | ⚠️ Not natively supported by .NET |
+| Machine | Available system-wide for all users. Requires admin privileges.                   | ✅ Supported     | ⚠️ Not natively supported by .NET |
+
+> [!WARNING]
+> On **non-Windows platforms**, only **Process** scope is supported due to .NET limitations.
+> We’re working on safe, platform-specific solutions to persist variables beyond process scope.
 
 ## Installation
 
@@ -98,19 +115,32 @@ cd environment-variable-explorer/EnvironmentVariableExplorer/bin/Release/net9.0/
 5. **Edit inline** by clicking any value cell
 6. **Delete** by selecting a row and clicking the delete button
 
-> **💡 Tip:** On non-Windows platforms, only Process-level variables can be modified
+> [!NOTE]
+> On non-Windows platforms, only Process-level variables can be modified. As of now, there are no persistent storage mechanisms
+
+## Work in Progress / Roadmap 🚧
+
+Here are some features and improvements we're actively working on:
+
+- **🔄 Cross-platform Persistent Storage:**
+  - Implementing a user-friendly solution to simulate persistent environment variables on **Linux/macOS**, such as:
+    - Writing to `.bashrc`, `.zshrc`, `.profile`, or systemd environment files.
+    - Using distro-specific methods (e.g., `~/.config/environment.d/` on systemd-based systems).
+
+- **📤 Import/Export Options:**
+  - Support for exporting environment variables to `.json` files.
+  - Ability to import environment variable sets from `.json` files for sharing, quick setup or backup.
 
 ## Troubleshooting
 
 ### Common Issues
 
-**"Access Denied" when editing User/Machine variables**
-- Run as Administrator on Windows
-- Machine scopes require elevated permissions
+**"Registry Access Denied" when editing Machine variables**
+- Run application as Administrator on Windows, Machine scopes require elevated permissions
 
 **Variables not appearing**
-- Restart the application to refresh the view
-- Check if variables exist in the correct scope
+- Switch to `All` scope in the drop-down and use full-text search to make sure your new variable was created in the correct scope
+- `Process` environment variables are **temporary** and will be deleted after you stop the application
 
 ## Get Involved
 
