@@ -56,6 +56,7 @@ No more hunting through OS settings or remembering complex commands! This app of
     - [Option 1: Download Pre-built Binary](#option-1-download-pre-built-binary)
     - [Option 2: Build from source](#option-2-build-from-source)
   - [Quick Start](#quick-start)
+  - [Work in Progress / Roadmap 🚧](#work-in-progress--roadmap-)
   - [Troubleshooting](#troubleshooting)
     - [Common Issues](#common-issues)
   - [Get Involved](#get-involved)
