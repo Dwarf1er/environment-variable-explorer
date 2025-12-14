@@ -35,10 +35,10 @@ If you find this tool helpful, please star the repo! ⭐
 
 No more hunting through OS settings or remembering complex commands! This app offers:
 
-- ✅ Cross-platform support with platform-specific restrictions.
-- ✅ Clear separation of environment variable targets.
-- ✅ Safe editing with inline validation
-- ✅ Quick access to environment variables for troubleshooting and configuration.
+- Cross-platform support with platform-specific restrictions.
+- Clear separation of environment variable targets.
+- Safe editing with inline validation
+- Quick access to environment variables for troubleshooting and configuration.
 
 # Table of Contents
 
@@ -56,7 +56,7 @@ No more hunting through OS settings or remembering complex commands! This app of
     - [Option 1: Download Pre-built Binary](#option-1-download-pre-built-binary)
     - [Option 2: Build from source](#option-2-build-from-source)
   - [Quick Start](#quick-start)
-  - [Work in Progress / Roadmap 🚧](#work-in-progress--roadmap-)
+  - [Work in Progress / Roadmap](#work-in-progress--roadmap-)
   - [Troubleshooting](#troubleshooting)
     - [Common Issues](#common-issues)
   - [Get Involved](#get-involved)
@@ -65,15 +65,15 @@ No more hunting through OS settings or remembering complex commands! This app of
 ## Features
 
 ### Core Functionality
-- 🔍 **Smart Filtering** - Browse variables by scope (Process/User/Machine)
-- ✏️ **Inline Editing** - Click to edit with real-time validation
-- ➕ **Easy Addition** - Add new variables with guided input
-- 🗑️ **Safe Deletion** - Remove variables with confirmation prompts
+- **Smart Filtering** - Browse variables by scope (Process/User/Machine)
+- **Inline Editing** - Click to edit with real-time validation
+- **Easy Addition** - Add new variables with guided input
+- **Safe Deletion** - Remove variables with confirmation prompts
 
 ### Platform Support
-- 🪟 **Windows** - Full support for all variable scopes
-- 🐧 **Linux/macOS** - Process-level variables only
-- ⚡ **Cross-platform** - Built with .NET for maximum compatibility
+- **Windows** - Full support for all variable scopes
+- **Linux/macOS** - Process-level variables only
+- **Cross-platform** - Built with .NET for maximum compatibility
 
 ## Understanding Environment Variable Targets
 
@@ -119,16 +119,16 @@ cd environment-variable-explorer/EnvironmentVariableExplorer/bin/Release/net9.0/
 > [!NOTE]
 > On non-Windows platforms, only Process-level variables can be modified. As of now, there are no persistent storage mechanisms
 
-## Work in Progress / Roadmap 🚧
+## Work in Progress / Roadmap
 
 Here are some features and improvements we're actively working on:
 
-- **🔄 Cross-platform Persistent Storage:**
+- **Cross-platform Persistent Storage:**
   - Implementing a user-friendly solution to simulate persistent environment variables on **Linux/macOS**, such as:
     - Writing to `.bashrc`, `.zshrc`, `.profile`, or systemd environment files.
     - Using distro-specific methods (e.g., `~/.config/environment.d/` on systemd-based systems).
 
-- **📤 Import/Export Options:**
+- **Import/Export Options:**
   - Support for exporting environment variables to `.json` files.
   - Ability to import environment variable sets from `.json` files for sharing, quick setup or backup.
 
@@ -145,10 +145,10 @@ Here are some features and improvements we're actively working on:
 
 ## Get Involved
 
-- 💡 Have ideas or feature requests? Open an issue or start a discussion!
-- 🔧 Want to contribute? Fork the repo, submit PRs, and help improve the tool!
-- 📢 Using Environment Variable Explorer? Let us know! Share your use case, report issues, or give feedback.
-- 🚀 Spread the word! ⭐ Star the repo and share with others!
+- Have ideas or feature requests? Open an issue or start a discussion!
+- Want to contribute? Fork the repo, submit PRs, and help improve the tool!
+- Using Environment Variable Explorer? Let us know! Share your use case, report issues, or give feedback.
+- Spread the word! ⭐ Star the repo and share with others!
 
 # License
 
